@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>PRIVATE</title>
+</head>
+
+<body>
+  PRIVATE index<br>
+  <a href="#" onclick="logout()">Logout</a>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script type="text/javascript">
+    const logout = () => {
+      document.cookie = `token=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT;`
+      window.location = "/";
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>PUBLIC</title>
+</head>
+
+<body>
+  <h1>PUBLIC Login</h1>
+  <div>
+    Username<br><input id="username" value="johny">
+  </div>
+  <div>
+    Password<br>
+    <input id="password" value="password" type="password">
+  </div>
+  <div>
+    <button onclick="submit()">Login</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script type="text/javascript">
+    // CHECK IF COOKIE IS OK
+    console.log("public");
+    console.log(document.cookie.token);
+    axios.get('/token').then((response) => {
+      const JSON = response.data;
+      console.log("response");
+      if (JSON.status === "ok") {
+        window.location = "/private"
+      }
+    });
+    // TODO: if login redirect
+    const submit = () => {
+      console.log("submitting");
+      axios.post('/post/login', {
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+        .then((response) => {
+          const JSON = response.data;
+          console.log(JSON);
+          if (JSON.status === "ok") {
+            console.log("yes");
+            document.cookie = `token=${JSON.token};path=/;`
+            window.location = "/private";
+          } else {
+            console.log("oops");
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  </script>
+
+</body>
+
+</html>
